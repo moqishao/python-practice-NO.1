@@ -1,0 +1,29 @@
+class Node:
+    
+    def __init__(self, data, next_node=None):
+        self.data = data
+        self.__next = next_node
+
+class SinglyLinkList:
+
+    def __init__(self):
+        self.__head = None
+
+    def insert_node_to_head(self, new_node: Node):
+    if new_node:
+        new_node.__next = self.__head
+        self.__head = new_node
+        
+    def insert_node_before(self, node: Node, new_node: Node):
+        if not node or not new_node:
+            return
+        if node == self.__head:
+            self.insert_node_to_head(new_node)
+            return                                             #没有加入 return，导致 self.__head 指向自身，成死循环
+        current = self.__head
+        while current.__next and current.__next != node:
+            current = current.__next
+        if not current.__next:
+            return
+        new_node.__next = node 
+        current.__next = new_node
